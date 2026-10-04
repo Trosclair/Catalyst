@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/Menu.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/MenuItem.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/TabControl.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/Button.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/Expander.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/TextBlock.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/TextBox.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/CheckBox.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/TreeView.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/Window.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/ScrollBar.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/ComboBox.xaml"/>
+        <ResourceDictionary Source="/Catalyst.WPF.Themes;component/Controls/Slider.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

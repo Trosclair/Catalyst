@@ -1,0 +1,175 @@
+﻿<catalystWindow:CatalystWindow x:Class="Catalyst.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Catalyst"
+        xmlns:catalystWindow="clr-namespace:Catalyst.WPF.Window;assembly=Catalyst.WPF.Window" xmlns:viewmodels="clr-namespace:Catalyst.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+                               mc:Ignorable="d"
+        Title="Catalyst" Height="450" Width="800">
+    <catalystWindow:CatalystWindow.Menu>
+        <Menu>
+            <MenuItem Header="File">
+                <MenuItem Header="New" />
+                <MenuItem Header="Open" />
+                <MenuItem Header="Save" />
+                <Separator />
+                <MenuItem Header="Exit" />
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo" />
+                <MenuItem Header="Redo" />
+                <Separator />
+                <MenuItem Header="Cut" />
+                <MenuItem Header="Copy" />
+                <MenuItem Header="Paste" />
+            </MenuItem>
+            <MenuItem Header="Editor">
+                <MenuItem Header="Guide Markers">
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Guide Markers"/>
+                                <ComboBox SelectedItem="{Binding GuideMarkerType}" ItemsSource="{Binding GuideMarkerTypes}" Margin="10 0 0 0" Width="100"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Major Marker Color"/>
+                                <ComboBox SelectedItem="{Binding MajorMarkerBrush}" ItemsSource="{Binding MarkerBrushes}" Margin="10 0 0 0" Width="100"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Minor Marker Color"/>
+                                <ComboBox SelectedItem="{Binding MinorMarkerBrush}" ItemsSource="{Binding MarkerBrushes}" Margin="10 0 0 0" Width="100"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Major Marker Thickness"/>
+                                <Slider Minimum="1" Maximum="10" Value="{Binding MajorMarkerThickness}" Margin="10 0 0 0" Width="100"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Minor Marker Thickness"/>
+                                <Slider Minimum="1" Maximum="10" Value="{Binding MinorMarkerThickness}" Margin="10 0 0 0" Width="100"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Snap">
+                    <MenuItem Header="Snap On" IsCheckable="True"/>
+                    <MenuItem Header="Snap Type"/> <!-- Inch, Metric, or Pixel (Hide others when selected) -->
+                    <MenuItem Header="Pixel Tolerance"/>
+                    <MenuItem Header="Inch Tolerance"/>
+                    <MenuItem Header="Centimeter Tolerance"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Window">
+                <MenuItem Header="Theme">
+                    <MenuItem Header="Dark" IsCheckable="True"/>
+                    <MenuItem Header="Light" IsCheckable="True"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" />
+            </MenuItem>
+        </Menu>
+    </catalystWindow:CatalystWindow.Menu>
+    <catalystWindow:CatalystWindow.Content>
+        <Grid>
+            <Grid Margin="5 0 5 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+
+                <TabControl Grid.Column="0" Margin="0 0 3 0">
+                    <TabItem Header="Business">
+                        <Grid>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <Canvas Background="{DynamicResource FifthBrush}" Height="2000" Width="2000">
+                                    <ItemsControl ItemsSource="{Binding VerticalGuideMarkers}" Canvas.Left="0" Canvas.Top="0" Opacity=".3">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <Canvas Height="2000" Width="2000" Background="Transparent" IsHitTestVisible="False"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Line X1="{Binding X}" Y1="0" X2="{Binding X}" 
+                                                      Y2="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=Height}" 
+                                                      Stroke="{Binding Brush}" StrokeThickness="{Binding Thickness}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ItemsControl ItemsSource="{Binding HorizontalGuideMarkers}" Canvas.Left="0" Canvas.Top="0" Opacity=".3">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <Canvas Height="2000" Width="2000" Background="Transparent" IsHitTestVisible="False"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Line X1="0" Y1="{Binding Y}" X2="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=Width}" 
+                                                      Y2="{Binding Y}"
+                                                      Stroke="{Binding Brush}" StrokeThickness="{Binding Thickness}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Canvas>
+                            </ScrollViewer>
+                            
+                            <StackPanel Orientation="Vertical" Width="76" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Border BorderBrush="{DynamicResource SecondAccentBrush}" Background="{DynamicResource FirstBrush}" BorderThickness="1">
+                                    <Grid Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="35"/>
+                                            <RowDefinition Height="35"/>
+                                            <RowDefinition Height="35"/>
+                                            <RowDefinition Height="35"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Button Content="P" Grid.Row="0" Grid.Column="0" Margin="2"/>
+                                        <Button Content="C" Grid.Row="0" Grid.Column="1" Margin="2"/>
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+                <GridSplitter Width="5" Grid.Column="1" ResizeDirection="Columns" Background="Black" Opacity=".01" ResizeBehavior="PreviousAndNext"/>
+
+                <TabControl Grid.Column="2">
+                    <TabItem Header="Explorer">
+                        
+                    </TabItem>
+                    <TabItem Header="Preview">
+                        
+                    </TabItem>
+                    <TabItem Header="Properties">
+                        
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </catalystWindow:CatalystWindow.Content>
+</catalystWindow:CatalystWindow>

@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="FirstColor">#FF1F1F1F</Color>
+    <Color x:Key="SecondColor">#FF1E1E1E</Color>
+    <Color x:Key="ThirdColor">#FF2E2E2E</Color>
+    <Color x:Key="FourthColor">#FF383838</Color>
+    <Color x:Key="FifthColor">#FF4D4D4D</Color>
+    <Color x:Key="SixthColor">#FF8C8C8C</Color>
+    <Color x:Key="FirstAccentColor">#FF7160E8</Color>
+    <Color x:Key="SecondAccentColor">#7F7160E8</Color>
+    <Color x:Key="ActiveTextColor">White</Color>
+    <Color x:Key="InactiveTextColor">LightGray</Color>
+
+    <SolidColorBrush x:Key="FirstBrush">#FF1F1F1F</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondBrush">#FF1E1E1E</SolidColorBrush>
+    <SolidColorBrush x:Key="ThirdBrush">#FF2E2E2E</SolidColorBrush>
+    <SolidColorBrush x:Key="FourthBrush">#FF383838</SolidColorBrush>
+    <SolidColorBrush x:Key="FifthBrush">#FF4D4D4D</SolidColorBrush>
+    <SolidColorBrush x:Key="SixthBrush">#FF8C8C8C</SolidColorBrush>
+    <SolidColorBrush x:Key="FirstAccentBrush">#FF7160E8</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondAccentBrush">#7F7160E8</SolidColorBrush>
+    <SolidColorBrush x:Key="ActiveTextBrush">White</SolidColorBrush>
+    <SolidColorBrush x:Key="InactiveTextBrush">LightGray</SolidColorBrush>
+</ResourceDictionary>

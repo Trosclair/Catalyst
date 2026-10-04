@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Catalyst.WPF.Themes/Catalyst.WPF.Themes.csproj" Id="57c0dfc8-caed-4bac-9538-ba218cda12ab" />
+  <Project Path="Catalyst.WPF.Utilities/Catalyst.WPF.Utilities.csproj" />
+  <Project Path="Catalyst.WPF.Window/Catalyst.WPF.Window.csproj" />
+  <Project Path="Catalyst/Catalyst.csproj" />
+</Solution>
