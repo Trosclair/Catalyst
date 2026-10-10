@@ -4,7 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Catalyst"
-        xmlns:catalystWindow="clr-namespace:Catalyst.WPF.Window;assembly=Catalyst.WPF.Window" xmlns:viewmodels="clr-namespace:Catalyst.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+        xmlns:catalystWindow="clr-namespace:Catalyst.WPF.Window;assembly=Catalyst.WPF.Window" 
+                               xmlns:viewmodels="clr-namespace:Catalyst.ViewModels" 
+                               xmlns:utilities="clr-namespace:Catalyst.WPF.Utilities;assembly=Catalyst.WPF.Utilities" xmlns:ppc="clr-namespace:Catalyst.Controls"
+                               d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
                                mc:Ignorable="d"
         Title="Catalyst" Height="450" Width="800">
     <catalystWindow:CatalystWindow.Menu>
@@ -28,53 +31,117 @@
                 <MenuItem Header="Guide Markers">
                     <MenuItem>
                         <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
+                            <Grid Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="Guide Markers"/>
-                                <ComboBox SelectedItem="{Binding GuideMarkerType}" ItemsSource="{Binding GuideMarkerTypes}" Margin="10 0 0 0" Width="100"/>
-                            </StackPanel>
+                                <ComboBox SelectedItem="{Binding GuideMarkerType}" ItemsSource="{Binding GuideMarkerTypes}" Margin="10 0 0 0" Width="100" Grid.Column="1"/>
+                            </Grid>
                         </MenuItem.Header>
                     </MenuItem>
                     <Separator/>
                     <MenuItem>
                         <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
+                            <Grid Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="Major Marker Color"/>
-                                <ComboBox SelectedItem="{Binding MajorMarkerBrush}" ItemsSource="{Binding MarkerBrushes}" Margin="10 0 0 0" Width="100"/>
-                            </StackPanel>
+                                <ComboBox SelectedItem="{Binding MajorMarkerBrush}" ItemsSource="{Binding Source={x:Static utilities:PredefinedBrushCollector.Instance}, Path=Brushes}" DisplayMemberPath="Name" Margin="10 0 0 0" Width="100" Grid.Column="1"/>
+                            </Grid>
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem>
                         <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
+                            <Grid Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="Minor Marker Color"/>
-                                <ComboBox SelectedItem="{Binding MinorMarkerBrush}" ItemsSource="{Binding MarkerBrushes}" Margin="10 0 0 0" Width="100"/>
-                            </StackPanel>
+                                <ComboBox SelectedItem="{Binding MinorMarkerBrush}" ItemsSource="{Binding Source={x:Static utilities:PredefinedBrushCollector.Instance}, Path=Brushes}" DisplayMemberPath="Name" Margin="10 0 0 0" Width="100" Grid.Column="1"/>
+                            </Grid>
                         </MenuItem.Header>
                     </MenuItem>
                     <Separator/>
                     <MenuItem>
                         <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
+                            <Grid Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="Major Marker Thickness"/>
-                                <Slider Minimum="1" Maximum="10" Value="{Binding MajorMarkerThickness}" Margin="10 0 0 0" Width="100"/>
-                            </StackPanel>
+                                <Slider Minimum="1" Maximum="10" Value="{Binding MajorMarkerThickness}" Margin="10 0 0 0" Width="100" Grid.Column="1"/>
+                            </Grid>
                         </MenuItem.Header>
                     </MenuItem>
                     <MenuItem>
                         <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
+                            <Grid Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="Minor Marker Thickness"/>
-                                <Slider Minimum="1" Maximum="10" Value="{Binding MinorMarkerThickness}" Margin="10 0 0 0" Width="100"/>
-                            </StackPanel>
+                                <Slider Minimum="1" Maximum="10" Value="{Binding MinorMarkerThickness}" Margin="10 0 0 0" Width="100" Grid.Column="1"/>
+                            </Grid>
                         </MenuItem.Header>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Snap">
-                    <MenuItem Header="Snap On" IsCheckable="True"/>
-                    <MenuItem Header="Snap Type"/> <!-- Inch, Metric, or Pixel (Hide others when selected) -->
-                    <MenuItem Header="Pixel Tolerance"/>
-                    <MenuItem Header="Inch Tolerance"/>
-                    <MenuItem Header="Centimeter Tolerance"/>
+                    <MenuItem Header="Snap On" IsCheckable="True" IsChecked="{Binding IsSnapOn}"/>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <Grid Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Snap Type"/>
+                                <ComboBox Grid.Column="1" Width="100" SelectedItem="{Binding SnapType}" ItemsSource="{Binding SnapTypes}"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem> <!-- Inch, Metric, or Pixel (Hide others when selected) -->
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <Grid Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Pixel Tolerance"/>
+                                <TextBox Text="{Binding PixelTolerance}" Width="100" Grid.Column="1"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <Grid Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Inch Tolerance"/>
+                                <TextBox Text="{Binding InchTolerance}" Width="100" Grid.Column="1"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <Grid Width="250">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Centimeter Tolerance"/>
+                                <TextBox Text="{Binding CentimeterTolerance}" Width="100" Grid.Column="1"/>
+                            </Grid>
+                        </MenuItem.Header></MenuItem>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Window">
@@ -98,10 +165,12 @@
                 </Grid.ColumnDefinitions>
 
                 <TabControl Grid.Column="0" Margin="0 0 3 0">
-                    <TabItem Header="Business">
+                    <TabItem Header="Test Plush">
                         <Grid>
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                <Canvas Background="{DynamicResource FifthBrush}" Height="2000" Width="2000">
+                                <Canvas x:Name="PatternCanvas" Background="{DynamicResource FifthBrush}" Height="2000" Width="2000" 
+                                        PreviewMouseLeftButtonDown="PatternCanvas_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="PatternCanvas_PreviewMouseLeftButtonUp"
+                                        MouseMove="PatternCanvas_MouseMove">
                                     <ItemsControl ItemsSource="{Binding VerticalGuideMarkers}" Canvas.Left="0" Canvas.Top="0" Opacity=".3">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -130,6 +199,7 @@
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
+                                    <ppc:PatternPieceCanvas x:Name="PatternPieceCanvas" PatternPieces="{Binding PatternPieces}" Canvas.Left="0" Canvas.Top="0"/>
                                 </Canvas>
                             </ScrollViewer>
                             

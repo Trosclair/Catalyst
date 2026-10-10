@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Catalyst.ViewModels;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,10 +17,36 @@ namespace Catalyst
     /// </summary>
     public partial class MainWindow : WPF.Window.CatalystWindow
     {
+        private MainViewModel viewModel;
+
         public MainWindow()
         {
-            DataContext = new ViewModels.MainViewModel();
+            DataContext = viewModel = new MainViewModel();
             InitializeComponent();
+        }
+
+        private void PatternCanvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Canvas canvas)
+            {
+                viewModel.PatternCanvas_MouseLeftButtonDown(e.GetPosition(canvas));
+            }
+        }
+
+        private void PatternCanvas_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Canvas canvas)
+            {
+                viewModel.PatternCanvas_MouseLeftButtonUp(e.GetPosition(canvas));
+            }
+        }
+
+        private void PatternCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (sender is Canvas canvas)
+            {
+                viewModel.PatternCanvas_MouseMove(e.GetPosition(canvas), e);
+            }
         }
     }
 }
