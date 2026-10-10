@@ -245,7 +245,7 @@ namespace Catalyst.Controls
                                 bezierSegment.SetCurrentValue(BezierSegment.Point1Property, previousAnchor.Handle2);
                                 bezierSegment.SetCurrentValue(BezierSegment.Point2Property, anchorPoint.Handle1);
                                 bezierSegment.SetCurrentValue(BezierSegment.Point3Property, anchorPoint.Point);
-                            }       // TODO: everytime an anchorpoint is added at the end. It needs to move the outPathSegment that connects to the first point...
+                            }
                         }
                     }
                 }

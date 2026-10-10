@@ -7,6 +7,11 @@ namespace Catalyst.Extensions
 {
     public static class PointExtensions
     {
+        public static Point XYDeltaBetweenPoints(this Point a, Point b)
+        {
+            return new Point(b.X - a.X, b.Y - a.Y);
+        }
+
         /// <summary>
         /// Calculates the Euclidean distance between two points.
         /// </summary>

@@ -34,6 +34,8 @@ namespace Catalyst.ViewModels
         private Tool tool = Tool.Pen;
         private Point? lastMousePosition = null;
         private bool isEndingPiece = false;
+        private bool willContinueBezierCurve = false;
+        private Point? continuousBezierCurveOffset = null;
         #endregion
 
         #region Properties
@@ -159,6 +161,16 @@ namespace Catalyst.ViewModels
             {
                 zoom = value;
                 OnPropertyChanged(nameof(Zoom));
+            }
+        }
+
+        public bool WillContinueBezierCurve
+        {
+            get => willContinueBezierCurve;
+            set
+            {
+                willContinueBezierCurve = value;
+                OnPropertyChanged(nameof(WillContinueBezierCurve));
             }
         }
 
@@ -289,11 +301,11 @@ namespace Catalyst.ViewModels
                 if (selectedPiece.AnchorPoints.Count > 0 &&
                     lastAnchorPoint.Point.DistanceToPoint(p) < AnchorPointHitRadiusInPixels)
                 {
-                    lastAnchorPoint.IsHandle2Enabled = false;
+                    WillContinueBezierCurve = false;
                     return;
                 }
 
-                AnchorPointViewModel newAnchorPoint = new AnchorPointViewModel(p)
+                AnchorPointViewModel newAnchorPoint = new(p)
                 {
                     Handle1 = p,
                     Handle2 = p,
@@ -302,6 +314,13 @@ namespace Catalyst.ViewModels
                 };
 
                 selectedPiece.AnchorPoints.Add(newAnchorPoint);
+
+                if (WillContinueBezierCurve && continuousBezierCurveOffset is Point cbco)
+                {
+                    newAnchorPoint.Handle1 = new Point(newAnchorPoint.Point.X - cbco.X, newAnchorPoint.Point.Y - cbco.Y);
+                }
+                continuousBezierCurveOffset = null;
+                WillContinueBezierCurve = true;
             }
             else
             {
@@ -324,6 +343,7 @@ namespace Catalyst.ViewModels
                     IsHandle2Enabled = false
                 };
 
+                WillContinueBezierCurve = true;
                 PatternPieces.Add(newPatternPiece);
                 newPatternPiece.AnchorPoints.Add(newAnchorPoint);
             }
@@ -357,6 +377,11 @@ namespace Catalyst.ViewModels
                         AnchorPointViewModel lastAnchorPoint = isEndingPiece ? selectedPiece.AnchorPoints[0] : selectedPiece.AnchorPoints[^1];
                         lastAnchorPoint.IsHandle1Enabled = true;
                         lastAnchorPoint.Handle1 = new(lastAnchorPoint.Handle1.X - p.X + oldPos.X, lastAnchorPoint.Handle1.Y - p.Y + oldPos.Y);
+
+                        if (WillContinueBezierCurve)
+                        {
+                            continuousBezierCurveOffset = lastAnchorPoint.Point.XYDeltaBetweenPoints(lastAnchorPoint.Handle1);
+                        }
                     } 
                 }
             }
